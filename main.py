@@ -10,53 +10,76 @@ FILE_PATH = r"C:\Programming\Spatial_data_original\Fire_and_Rescue.shp"  #Define
 
 OUTPUT_PATH = r"C:\Programming\Output" #Defined output folder 
 
-"""This fuction reads the vector data from a specified path and returns a Geodataframe"""
 
-# def read_return_gdf(FILE_PATH):
 
-#     gdf = gpd.read_file(FILE_PATH) 
+"""Function: Read shapefile from a specified path and returns a geodata frame object"""
 
-#     return gdf
+def read_return_gdf(FILE_PATH):
+    
+     #  Parameters:FILE_PATH (str): The full file path to the input shapefile.
 
-# gdf = read_return_gdf(FILE_PATH)
+    gdf = gpd.read_file(FILE_PATH) 
 
-# print(gdf) #validation of dataframe
+     #  Returns:gpd.GeoDataFrame: A GeoDataFrame containing the spatial and attribute data from the shapefile
+
+    return gdf  
+
+gdf = read_return_gdf(FILE_PATH) # Call the function with the defined file path
+
+print(gdf) #validation of dataframe
 
 
 
 """This function is to show spatial data and attriutes row by row"""
 
 
+"""Reads a shapefile from the specified file path and prints each row
+    of the resulting GeoDataFrame along with a separator line.
 
-# def print_all_rows(FILE_PATH):
-#     try:
-#         gdf = gpd.read_file(FILE_PATH)
-#         print(f"File loaded successfully.")
+Parameters:
+        FILE_PATH (str): The full path to the shapefile to be read.
+
+Returns:
+        None: This function does not return a value. It prints each row
+              (both geometry and attributes) of the GeoDataFrame to the console."""
+
+
+def print_all_rows(FILE_PATH):
+    try:
+        gdf = gpd.read_file(FILE_PATH)
+        print(f"File loaded successfully.")
       
-#     except Exception as e:
-#         print(f"Error reading file: {e}")
-#         return
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return
 
-#     if gdf.empty:
-#         print("GeoDataFrame is empty — no rows to print.")
-#         return
+    if gdf.empty:
+        print("GeoDataFrame is empty — no rows to print.")
+        return
 
-#     for row in gdf.iterrows():
+    for row in gdf.iterrows():
         
-#         print(row)
-#         print("-" * 60)
+        print(row)
+        print("-" * 60)
 
 
-# print_all_rows(FILE_PATH)
+print_all_rows(FILE_PATH)
 
+"""Reads a shapefile, transforms its CRS to the specified EPSG code,
+    and prints the CRS and the first few rows of the transformed GeoDataFrame.
 
+Parameters:
+        FILE_PATH (str): The path to the shapefile to read.
+        EPSG (int, optional): The target EPSG code for CRS transformation. Default is 7856.
 
-# gdf = gpd.read_file(FILE_PATH)
+Returns: None"""
 
-# gdf = gdf.to_crs(epsg=7856)
+gdf = gpd.read_file(FILE_PATH)
 
-# print(gdf.crs)
-# print(gdf.head())
+gdf = gdf.to_crs(epsg=7856)
+
+print(gdf.crs)
+print(gdf.head())
 
 def transform_From_Projected_To_Geographic(FILE_PATH,EPSG=7856):
 
